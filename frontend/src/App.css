@@ -1,0 +1,120 @@
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  padding: 0px 18px;
+  border-radius: 12px;
+  min-height: 44px;
+  max-width: 100%;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+button.explore {
+  background-color: rgb(88, 88, 231);
+  color: #fff;
+}
+
+.application-page {
+  width: 100%;
+  max-width: 60vw;
+  margin: 5rem auto;
+}
+
+.application-page .page-hero {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 2rem;
+}
+
+.application-page .page-hero .eyebrow {
+  color: rgb(88, 88, 231);
+  padding-bottom: 30px;
+}
+
+.application-page .page-hero h1 {
+  line-height: 1.01;
+  max-width: 850px;
+  margin: 20px 0;
+  font-size: 4rem;
+}
+
+.application-page .page-hero p {
+  max-width: 790px;
+  font-size: 1.08rem;
+  color: #6c6969;
+}
+
+.application-page .section-heading h2 {
+  line-height: 1.5;
+  margin: 1rem 0 0;
+  font-size: 2rem;
+  padding: 10px 0px;
+}
+
+.application-page .section-heading p {
+  max-width: 790px;
+  font-size: 1rem;
+  color: #6c6969;
+}
+
+.card-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-section #location-selection {
+  width: 10rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin: 2rem 0 0.5rem;
+}
+
+.hero-action button {
+  margin: 2rem 1rem 0 0;
+}
+
+@media (max-width: 1200px) {
+  .application-page .page-hero h1 {
+    line-height: 1.01;
+    max-width: 850px;
+    margin: 20px 0;
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 950px) {
+  .application-page {
+    width: 100%;
+    max-width: 80vw;
+    margin: 5rem auto;
+  }
+}
+
+@media (max-width: 700px) {
+  .application-page {
+    width: 100%;
+    max-width: 90vw;
+    margin: 5rem auto;
+  }
+  .application-page .page-hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .application-page .section-heading h2 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .application-page .page-hero h1 {
+    font-size: 1.75rem;
+  }
+
+  .hero-action button {
+    margin: 1rem 1rem 0 0;
+  }
+}
