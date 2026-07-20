@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { LocationCard } from "./card";
 import { categories } from "../data/dataset";
 
@@ -6,29 +6,24 @@ import "../styles/location-list.css";
 
 export const LocationList = ({ locations }) => {
   const [category, setCategory] = useState("all");
-  const [visibleLocations, setVisibleLocations] = useState(locations);
+  const [list, setList] = useState(locations);
 
-  useEffect(() => {
-    const updateLocationList = () => {
-      setVisibleLocations(
-        category === "all"
-          ? locations
-          : locations.filter((location) => location.category === category),
-      );
-    };
-    updateLocationList();
-  }, [category, locations]);
-
-  const handleCardClick = (e) => {
-    setVisibleLocations(
-      visibleLocations.map((loc) =>
-        loc.id === e ? { ...loc, isOpen: !loc.isOpen } : loc,
+  const updateList = (locationId) => {
+    setList((currentList) =>
+      currentList.map((location) =>
+        location.id === locationId
+          ? { ...location, isOpen: !location.isOpen }
+          : location,
       ),
     );
   };
 
+  const filteredLocations = list.filter(
+    (location) => category === "all" || location.category === category,
+  );
   return (
     <>
+      <label htmlFor="location-selection">Filter by category</label>
       <select
         onChange={(e) => setCategory(e.target.value)}
         name="location-selection"
@@ -41,17 +36,27 @@ export const LocationList = ({ locations }) => {
         ))}
       </select>
 
-      {visibleLocations?.length === 0 && (
-        <p className="no-listings">No Locations Found</p>
-      )}
-      <section className="locations-list">
-        {visibleLocations.map((location) => (
-          <LocationCard
-            key={location.id}
-            location={location}
-            handleCardClick={(e) => handleCardClick(e)}
-          />
-        ))}
+      <section
+        className="locations-section"
+        aria-labelledby="locations-heading"
+      >
+        <h2 id="locations-heading">Locations</h2>
+
+        {filteredLocations.length === 0 ? (
+          <p className="no-listings">No Locations Found</p>
+        ) : (
+          <ul className="locations-container">
+            {filteredLocations.map((location) => (
+              <li key={location.id}>
+                <LocationCard
+                  key={location.id}
+                  location={location}
+                  handleCardClick={updateList}
+                />
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
     </>
   );

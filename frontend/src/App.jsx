@@ -14,17 +14,10 @@ function App() {
             Move between business projects, shared services, community features,
             and productivity tools through one responsive application.
           </p>
-
-          <div className="hero-action">
-            <button className="explore">Explore Micro Town</button>
-            <button className="account">Create account</button>
-          </div>
         </div>
         <div className="section-heading">
           <h2>Choose a business</h2>
-          <p>
-            Each business contains a related collection of applications.
-          </p>
+          <p>Each business contains a related collection of applications.</p>
         </div>
         <div className="card-section">
           <LocationList locations={locations} />
