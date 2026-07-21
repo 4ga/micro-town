@@ -49,7 +49,6 @@ export const LocationList = ({ locations }) => {
             {filteredLocations.map((location) => (
               <li key={location.id}>
                 <LocationCard
-                  key={location.id}
                   location={location}
                   handleCardClick={updateList}
                 />

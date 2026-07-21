@@ -19,7 +19,7 @@ export const LocationCard = ({ location, handleCardClick }) => {
         className={isOpen ? "open" : "close"}
         onClick={() => handleCardClick(id)}
       >
-        {isOpen ? `Close ${name}` : `Open ${name}`}
+        {isOpen ? `Status: Open` : `Status: Close`}
       </button>
     </article>
   );
