@@ -96,7 +96,7 @@ describe("LocationList", () => {
     render(<LocationList locations={locations} />);
 
     const bakeryButton = screen.getByRole("button", {
-      name: "Micro Bakery is closed",
+      name: "Micro Bakery: Closed",
     });
 
     expect(bakeryButton).toHaveClass("close");
@@ -104,7 +104,7 @@ describe("LocationList", () => {
     await user.click(bakeryButton);
 
     const updatedBakeryButton = screen.getByRole("button", {
-      name: "Micro Bakery is open",
+      name: "Micro Bakery: Open",
     });
 
     expect(updatedBakeryButton).toHaveClass("open");
@@ -126,15 +126,39 @@ describe("LocationList", () => {
     expect(screen.queryByRole("list")).not.toBeInTheDocument();
   });
 
-  it("displays the two food locations", async () => {
+  it("displays the two food locations and then return all three", async () => {
     const user = userEvent.setup();
 
     render(<LocationList locations={locations} />);
 
-    await user.selectOptions(
-      screen.getByRole("combobox", { name: /filter by category/i }),
-      "food",
-    );
+    const categoryControl = screen.getByRole("combobox", {
+      name: /filter by category/i,
+    });
+
+    await user.selectOptions(categoryControl, "food");
     expect(screen.getAllByRole("listitem")).toHaveLength(2);
+
+    expect(
+      screen.getByRole("heading", { name: "Micro Bakery" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Tiny Diner" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", { name: "Town Clinic" }),
+    ).not.toBeInTheDocument();
+
+    await user.selectOptions(categoryControl, "all");
+    expect(screen.getAllByRole("listitem")).toHaveLength(3);
+
+    expect(
+      screen.getByRole("heading", { name: "Micro Bakery" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Town Clinic" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Tiny Diner" }),
+    ).toBeInTheDocument();
   });
 });
