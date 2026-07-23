@@ -17,9 +17,10 @@ export const LocationCard = ({ location, handleCardClick }) => {
       <p className="card-description">{description}</p>
       <button
         className={isOpen ? "open" : "close"}
+        aria-label={`${name} is ${isOpen ? "open" : "closed"}`}
         onClick={() => handleCardClick(id)}
       >
-        {isOpen ? `Status: Open` : `Status: Close`}
+        {isOpen ? `Status: Open` : `Status: Closed`}
       </button>
     </article>
   );

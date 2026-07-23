@@ -95,20 +95,19 @@ describe("LocationList", () => {
 
     render(<LocationList locations={locations} />);
 
-    const openButton = screen.getByRole("button", {
-      name: "Open Micro Bakery",
+    const bakeryButton = screen.getByRole("button", {
+      name: "Micro Bakery is closed",
     });
 
-    expect(openButton).toHaveClass("close");
+    expect(bakeryButton).toHaveClass("close");
 
-    await user.click(openButton);
+    await user.click(bakeryButton);
 
-    const closeButton = screen.getByRole("button", {
-      name: "Close Micro Bakery",
+    const updatedBakeryButton = screen.getByRole("button", {
+      name: "Micro Bakery is open",
     });
 
-    expect(closeButton).toBeInTheDocument();
-    expect(closeButton).toHaveClass("open");
+    expect(updatedBakeryButton).toHaveClass("open");
   });
 
   it("displays a message when a category has no locations", async () => {
@@ -125,5 +124,17 @@ describe("LocationList", () => {
 
     expect(screen.getByText(/no locations found/i)).toBeInTheDocument();
     expect(screen.queryByRole("list")).not.toBeInTheDocument();
+  });
+
+  it("displays the business location", async () => {
+    const user = userEvent.setup();
+
+    render(<LocationList locations={locations} />);
+
+    await user.selectOptions(
+      screen.getByRole("combobox", { name: /filter by category/i }),
+      "food",
+    );
+     expect(screen.getAllByRole("listitem")).toHaveLength(2);
   });
 });
