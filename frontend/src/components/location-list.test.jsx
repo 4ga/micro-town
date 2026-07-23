@@ -126,7 +126,7 @@ describe("LocationList", () => {
     expect(screen.queryByRole("list")).not.toBeInTheDocument();
   });
 
-  it("displays the business location", async () => {
+  it("displays the two food locations", async () => {
     const user = userEvent.setup();
 
     render(<LocationList locations={locations} />);
@@ -135,6 +135,6 @@ describe("LocationList", () => {
       screen.getByRole("combobox", { name: /filter by category/i }),
       "food",
     );
-     expect(screen.getAllByRole("listitem")).toHaveLength(2);
+    expect(screen.getAllByRole("listitem")).toHaveLength(2);
   });
 });
