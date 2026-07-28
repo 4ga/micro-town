@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
+import userEvent from "@testing-library/user-event";
 
 import { LocationCard } from "./card";
-import userEvent from "@testing-library/user-event";
 
 const location = {
   id: "loc-001",
@@ -13,7 +13,7 @@ const location = {
 };
 
 describe("LocationCard", () => {
-  it("render the location content, status, and action", () => {
+  it("renders the location content, status, and action", () => {
     const handleCardClick = vi.fn();
 
     render(
