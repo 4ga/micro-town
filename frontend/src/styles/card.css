@@ -15,10 +15,17 @@
   color: #464646;
 }
 
-.open {
+.status {
+  text-align: center;
+  padding: 5px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+.status-open {
   background-color: rgb(154, 234, 154);
 }
 
-.close {
+.status-closed {
   background-color: rgb(241, 151, 151);
 }

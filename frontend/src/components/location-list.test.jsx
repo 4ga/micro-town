@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
@@ -95,19 +95,37 @@ describe("LocationList", () => {
 
     render(<LocationList locations={locations} />);
 
-    const bakeryButton = screen.getByRole("button", {
-      name: "Micro Bakery: Closed",
+    const bakeryHeading = screen.getByRole("heading", {
+      name: "Micro Bakery",
     });
 
-    expect(bakeryButton).toHaveClass("close");
+    const bakeryCard = bakeryHeading.closest("article");
 
-    await user.click(bakeryButton);
+    expect(bakeryCard).not.toBeNull();
 
-    const updatedBakeryButton = screen.getByRole("button", {
-      name: "Micro Bakery: Open",
-    });
+    const bakery = within(bakeryCard);
 
-    expect(updatedBakeryButton).toHaveClass("open");
+    expect(bakery.getByText(/status:\s*closed/i)).toBeInTheDocument();
+
+    await user.click(
+      bakery.getByRole("button", {
+        name: "Open Micro Bakery",
+      }),
+    );
+
+    expect(bakery.getByText(/status:\s*open/i)).toBeInTheDocument();
+
+    expect(
+      bakery.getByRole("button", {
+        name: "Close Micro Bakery",
+      }),
+    ).toBeInTheDocument();
+
+    expect(
+      bakery.queryByRole("button", {
+        name: "Open Micro Bakery",
+      }),
+    ).not.toBeInTheDocument();
   });
 
   it("displays a message when a category has no locations", async () => {
